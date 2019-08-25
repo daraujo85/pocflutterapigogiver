@@ -43,18 +43,58 @@ class MyApp extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-         new CachedNetworkImage(
-              placeholder: null,
-              imageUrl: snapshot.data[index].background,
-              errorWidget: (context, url, error) => new Icon(Icons.error)
-              ),
-               new Text(
-          snapshot.data[index].descricao,
-            style: new TextStyle(fontSize:18.0,
-            color: const Color(0xFF000000),
-            fontWeight: FontWeight.w200,
-            fontFamily: "Roboto")
+
+          new Card(
+            margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
+            child:  Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+                   
+                new Container(
+            
+            child: new Image.network(
+                                snapshot.data[index].background, 
+                                //width: 250.0,
+                                fit: BoxFit.scaleDown                               
+                                ),                                                     
+            padding: EdgeInsets.all(10.0)
+         ),
+         new Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: new Container(
+                        width: 500,
+                        child: new Column (
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:  <Widget>[
+                          new Text(
+                      snapshot.data[index].descricao,
+                        style: new TextStyle(fontSize:20.0,
+                        color: const Color(0xFF000000),
+                        fontWeight: FontWeight.w300,
+                        fontFamily: "Roboto")
+                      ),
+                      new Padding(
+                        padding: EdgeInsets.fromLTRB(0, 8.0, 0, 0),
+                        child: new Text(
+                        "Uma descrição qualquer sobre a categoria",
+                        style: new TextStyle(fontSize:18.0,
+                        color: const Color(0xFF000000),
+                        fontWeight: FontWeight.w300,
+                        fontFamily: "Roboto")
+                      )
+                      )
+                       
+                      ],
+                      
+                  ),
+                  padding: EdgeInsets.all(8.0)
+                  )
+                )
+            ]
           )
+          ),
+                
+ 
         ]
 
       );
