@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:teste/global.dart';
+
+import 'erro.dart';
 
 class Categoria{
 int id;
@@ -90,10 +93,13 @@ Future<Categoria> obterPorId(http.Client client, int id) async{
   }
   else if (response.statusCode < 500)
   {
-     var dataResponse = json.decode(response.body);
+    var dataResponse = json.decode(response.body);
 
-    throw Exception(dataResponse['erros']);
-  }
+    var erros = ((dataResponse['errors']) as List).map((e) => new Erro.fromJson(e)).toList();  
+    
+    
+        
+   }
 
 }
 
