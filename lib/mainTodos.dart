@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
         body: Center(
           child: FutureBuilder(
             
-            //future: categoria.obterTodas(http.Client()),
-            future: categoria.obterPorId(http.Client(), 1),
+            future: categoria.obterTodas(http.Client()),
+            //future: categoria.obterPorId(http.Client(), 1),
             builder: (BuildContext context, AsyncSnapshot snapshot)
             {                            
               if(snapshot.data == null){
@@ -36,7 +36,10 @@ class MyApp extends StatelessWidget {
                    ),
                  );
               }
-                 return new Column(
+              return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (BuildContext context, int index){
+                return new Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,7 +53,7 @@ class MyApp extends StatelessWidget {
                 new Container(
             
             child: new Image.network(
-                                snapshot.data.background, 
+                                snapshot.data[index].background, 
                                 //width: 250.0,
                                 fit: BoxFit.scaleDown                               
                                 ),                                                     
@@ -64,7 +67,7 @@ class MyApp extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children:  <Widget>[
                           new Text(
-                      snapshot.data.descricao,
+                      snapshot.data[index].descricao,
                         style: new TextStyle(fontSize:20.0,
                         color: const Color(0xFF000000),
                         fontWeight: FontWeight.w300,
@@ -95,8 +98,9 @@ class MyApp extends StatelessWidget {
         ]
 
       );
-                       
-
+         
+                },
+              );
             },
           ),
         ),

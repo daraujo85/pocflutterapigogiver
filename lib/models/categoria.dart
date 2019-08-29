@@ -63,5 +63,39 @@ Future<List<Categoria>> obterTodas(http.Client client) async{
   }
 
 }
+Future<Categoria> obterPorId(http.Client client, int id) async{
+  
+  var url = CAT_GET_BY_ID + "/" + id.toString();
+
+  final response = await client.get(url);
+
+  if(response.statusCode == 200)
+  {
+    var dataResponse = json.decode(response.body);
+
+    //List<Categoria> list = new List<Categoria>.generate(3, (index)=>Categoria.fromJson(dataResponse['data'][index]));
+    
+    //return list;
+
+    if(dataResponse['success'] == true)
+    {    
+      
+      var categoria = Categoria.fromJson(dataResponse['data']);
+
+      
+      return categoria;
+    }
+    
+  
+  }
+  else if (response.statusCode < 500)
+  {
+     var dataResponse = json.decode(response.body);
+
+    throw Exception(dataResponse['erros']);
+  }
+
+}
+
 
 }
